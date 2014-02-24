@@ -1,5 +1,5 @@
-require "expandsync/version"
+require "expandsync/constants"
 
-module Expandsync
+module ExpandSync
   # Your code goes here...
 end

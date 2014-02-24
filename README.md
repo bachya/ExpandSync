@@ -1,4 +1,4 @@
-# Expandsync
+# ExpandSync
 
 TODO: Write a gem description
 

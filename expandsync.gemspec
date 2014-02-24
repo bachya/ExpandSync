@@ -1,14 +1,14 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'expandsync/version'
+require 'expandsync/constants'
 
 Gem::Specification.new do |spec|
   spec.name          = "expandsync"
-  spec.version       = Expandsync::VERSION
+  spec.version       = ExpandSync::VERSION
   spec.authors       = ["Aaron Bach"]
   spec.email         = ["bachya1208@googlemail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
+  spec.summary       = ExpandSync::DESCRIPTION
   spec.description   = %q{TODO: Write a longer description. Optional.}
   spec.homepage      = ""
   spec.license       = "MIT"

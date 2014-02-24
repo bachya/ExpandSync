@@ -8,22 +8,17 @@ class App
   include Methadone::Main
   include Methadone::CLILogging
 
-  main do # Add args you want: |like,so|
-    # your program code here
-    # You can access CLI options via
-    # the options Hash
+  main do
+    puts options
   end
 
-  # supplemental methods here
+  description ExpandSync::DESCRIPTION
+  version ExpandSync::VERSION
 
-  # Declare command-line interface here
-
-  # description "one line description of your app"
-  #
   # Accept flags via:
   # on("--flag VAL","Some flag")
   # options[flag] will contain VAL
-  #
+  # 
   # Specify switches via:
   # on("--[no-]switch","Some switch")
   #
@@ -34,10 +29,15 @@ class App
   #
   # # Make an argument optional
   # arg :optional_arg, :optional
+  
+  # Flags & Switches
+  on('-t', 'Specify a location for the TextExpander iOS XML file')
+  on('-v', '--verbose', 'Turn on verbose output')
+  
+  # Arguments
+  arg :atext_file, 'The filepath to a CSV file exported from aText'
 
-  version Expandsync::VERSION
-
-  use_log_level_option
+  # use_log_level_option
 
   go!
 end
