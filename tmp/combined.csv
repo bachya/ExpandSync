@@ -1,21 +1,4 @@
-Feature: UI
-  When the user asks for help, he should be presented
-  with instructions on how to run the app.
-
-  Scenario: Display help instructions
-    When I get help for "expandsync"
-    Then the exit status should be 0
-    And the banner should be present
-    And the banner should include the version
-    And the banner should document that this app takes options
-    And the banner should document that this app takes options
-    And the banner should document that this app's arguments are:
-      | atext_file | which is required |
-      
-  Scenario: Standard run to STDOUT (aText) and default Dropbox location (TextExpander)
-    Given an aText CSV file at "/tmp/atext.csv"
-    When I successfully run `expandsync /tmp/atext.csv`
-    Then the output should contain 'tyvm,Thank you very much!
+tyvm,Thank you very much!
 sig1,"Cheers,
 
 Jane Smith
@@ -83,6 +66,3 @@ Denver, CO 80202"
 ",wpho",720-389-3606
 ",wweb",http://www.fourwindsinteractive.com
 ",text","data:text/html, <html contenteditable> "
-'
-      And the new TextExpander rules should be located "~/Dropbox/TextExpander/Settings.textexpander"
-    

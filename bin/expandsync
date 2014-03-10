@@ -1,43 +1,46 @@
 #!/usr/bin/env ruby
 
-require 'optparse'
+require 'csv'
+require 'expandsync'
 require 'methadone'
-require 'expandsync.rb'
+require 'nokogiri'
+require 'optparse'
 
 class App
   include Methadone::Main
   include Methadone::CLILogging
 
-  main do
-    puts options
+  main do |atext_filepath|
+    atext_save_location = options[:a] || ExpandSync::DEFAULT_AT_SNIPPET_PATH
+    textexpander_save_location = options[:t] || ExpandSync::DEFAULT_TE_SNIPPET_PATH
+    
+    begin
+      # First, load snippets from both locations and figure out a unique
+      # "master list" to compare against.
+      at_snippets = ExpandSync::load_atext_snippets(atext_filepath)
+      te_snippets = ExpandSync::load_textexpander_snippets(textexpander_save_location)
+      combined_snippets = (at_snippets + te_snippets).uniq { |s| s[0] }
+      
+      # Produce raw data for both a new aText CSV and a new TextExpander XML.
+      at_file_content = ExpandSync::build_csv_for_atext(combined_snippets - at_snippets)
+      te_file_content = ExpandSync::build_xml_for_textexpander(combined_snippets - te_snippets, textexpander_save_location)
+
+      puts te_file_content
+    rescue StandardError => e
+      ExpandSync::CLIMessage.error(e, false)
+    end
   end
 
   description ExpandSync::DESCRIPTION
   version ExpandSync::VERSION
-
-  # Accept flags via:
-  # on("--flag VAL","Some flag")
-  # options[flag] will contain VAL
-  # 
-  # Specify switches via:
-  # on("--[no-]switch","Some switch")
-  #
-  # Or, just call OptionParser methods on opts
-  #
-  # Require an argument
-  # arg :some_arg 
-  #
-  # # Make an argument optional
-  # arg :optional_arg, :optional
   
   # Flags & Switches
-  on('-t', 'Specify a location for the TextExpander iOS XML file')
+  on('-a FILEPATH', "Specify an output location for aText rules (default to #{ ExpandSync::DEFAULT_AT_SNIPPET_PATH })")
+  on('-t FILEPATH', 'Specify a location for the TextExpander iOS XML file')
   on('-v', '--verbose', 'Turn on verbose output')
   
   # Arguments
-  arg :atext_file, 'The filepath to a CSV file exported from aText'
-
-  # use_log_level_option
+  arg :atext_filepath, 'The filepath to a CSV file exported from aText'
 
   go!
 end
