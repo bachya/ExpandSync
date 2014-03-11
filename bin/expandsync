@@ -11,21 +11,24 @@ class App
   include Methadone::CLILogging
 
   main do |atext_filepath|
-    atext_save_location = options[:a] || ExpandSync::DEFAULT_AT_SNIPPET_PATH
-    textexpander_save_location = options[:t] || ExpandSync::DEFAULT_TE_SNIPPET_PATH
-    
     begin
-      # First, load snippets from both locations and figure out a unique
-      # "master list" to compare against.
-      at_snippets = ExpandSync::load_atext_snippets(atext_filepath)
-      te_snippets = ExpandSync::load_textexpander_snippets(textexpander_save_location)
-      combined_snippets = (at_snippets + te_snippets).uniq { |s| s[0] }
+      # Collect snippets from both aText and TextExpander and create an
+      # array with the unique entries of both.
+      atext = AText.new(atext_filepath)
+      textexpander = TextExpander.new(options[:t] || ExpandSync::DEFAULT_TE_SNIPPET_PATH)
+      combined_snippets = (atext.snippets + textexpander.snippets).uniq { |s| s[0] }
       
-      # Produce raw data for both a new aText CSV and a new TextExpander XML.
-      at_file_content = ExpandSync::build_csv_for_atext(combined_snippets - at_snippets)
-      te_file_content = ExpandSync::build_xml_for_textexpander(combined_snippets - te_snippets, textexpander_save_location)
+      # Next, create file content (CSV for aText, XML for TextExpander)
+      # that contains the correct data:
+      #   1. aText CSV should contain any new TextExpander snippets.
+      #   2. TextExpander XML should contain original snippets *and*
+      #      any new aText snippets.
+      new_at_csv = atext.construct_data(combined_snippets - atext.snippets)
+      new_te_xml = textexpander.construct_data(combined_snippets - textexpander.snippets)
 
-      puts te_file_content
+      # Output the aText file.
+      # File.write(options[:a] || ExpandSync::DEFAULT_AT_OUTPUT_PATH, new_at_csv)
+      File.open(options[:a] || ExpandSync::DEFAULT_AT_OUTPUT_PATH, 'w') { |f| f.write(new_at_csv) }
     rescue StandardError => e
       ExpandSync::CLIMessage.error(e, false)
     end
@@ -35,7 +38,7 @@ class App
   version ExpandSync::VERSION
   
   # Flags & Switches
-  on('-a FILEPATH', "Specify an output location for aText rules (default to #{ ExpandSync::DEFAULT_AT_SNIPPET_PATH })")
+  on('-a FILEPATH', "Specify an output location for aText rules (default to...})")
   on('-t FILEPATH', 'Specify a location for the TextExpander iOS XML file')
   on('-v', '--verbose', 'Turn on verbose output')
   

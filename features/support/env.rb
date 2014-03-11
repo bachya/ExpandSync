@@ -12,7 +12,7 @@ Before do
   @original_home = ENV['HOME']
   ENV['HOME'] = '/tmp/expandsync'
   FileUtils.rm_rf '/tmp/expandsync'
-  FileUtils.mkdir '/tmp/expandsync'
+  FileUtils.mkdir_p '/tmp/expandsync/Dropbox/TextExpander'
 end
 
 After do

@@ -1,0 +1,30 @@
+tyvm,Thank you very much!
+sig1,"Cheers,
+
+Jane Smith
+Senior Vice President
+Acme, Inc."
+sig2,"Yours sincerely,
+
+Jane Smith
+PTA President
+Cupertino Elementary School"
+sig3,"Best regards,
+Jane Smith
+Senior Vice President
+Acme, Inc."
+ttel,415-555-1212
+aaddr,"123 Market Street
+San Francisco, CA"
+ddate,%e %B %Y
+sms1,I'm running late. Be there soon.
+sms2,Traffic is terrible. I'll be late. Sorry.
+sms3,I forgot all about our appointment. Can we reschedule?
+dnthx,"Dear %filltext:name=person name:width:25%,
+
+Thank you for your generous donation of $%filltext:name=amount:width:4%. We greatly appreciate your help, and will use the funds for %fillpopup:name=popup 4:default=our educational program:our health clinic:general purposes%.
+
+Since we are a non-profit organization, your donation of $%filltext:name=amount:width:4% should be tax-deductible.
+
+Thank you,
+"
