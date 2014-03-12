@@ -9,7 +9,7 @@ require 'optparse'
 class App
   include Methadone::Main
   include Methadone::CLILogging
-
+  
   main do |atext_filepath|
     begin
       # Collect snippets from both aText and TextExpander and create an
@@ -25,10 +25,16 @@ class App
       #      any new aText snippets.
       new_at_csv = atext.construct_data(combined_snippets - atext.snippets)
       new_te_xml = textexpander.construct_data(combined_snippets - textexpander.snippets)
-
-      # Output the aText file.
-      # File.write(options[:a] || ExpandSync::DEFAULT_AT_OUTPUT_PATH, new_at_csv)
-      File.open(options[:a] || ExpandSync::DEFAULT_AT_OUTPUT_PATH, 'w') { |f| f.write(new_at_csv) }
+      
+      # Save new aText snippets 
+      File.open(options[:a] || ExpandSync::DEFAULT_AT_OUTPUT_PATH, 'w') {|f| f.write(new_at_csv) }
+      
+      # Backup the original TextExpander file and output the new one.
+      FileUtils.cp(ExpandSync::DEFAULT_TE_SNIPPET_PATH, ExpandSync::DEFAULT_TE_SNIPPET_PATH + '.bak')
+      File.open(ExpandSync::DEFAULT_TE_SNIPPET_PATH, 'w') {|f| f.write(new_te_xml) }
+      
+      # This has to be here so that my Cucumber Aruba tests work. Don't ask why.
+      leak_exceptions(true)
     rescue StandardError => e
       ExpandSync::CLIMessage.error(e, false)
     end
@@ -39,6 +45,7 @@ class App
   
   # Flags & Switches
   on('-a FILEPATH', "Specify an output location for aText rules (default to...})")
+  on('-n', )
   on('-t FILEPATH', 'Specify a location for the TextExpander iOS XML file')
   on('-v', '--verbose', 'Turn on verbose output')
   

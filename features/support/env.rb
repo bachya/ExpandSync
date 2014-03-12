@@ -3,6 +3,7 @@ require 'methadone/cucumber'
 
 ENV['PATH'] = "#{File.expand_path(File.dirname(__FILE__) + '/../../bin')}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
 LIB_DIR = File.join(File.expand_path(File.dirname(__FILE__)),'..','..','lib')
+TMP_DIR = File.join(File.expand_path(File.dirname(__FILE__)),'..','..','tmp')
 
 Before do
   # Using "announce" causes massive warnings on 1.9.2
@@ -10,9 +11,10 @@ Before do
   @original_rubylib = ENV['RUBYLIB']
   ENV['RUBYLIB'] = LIB_DIR + File::PATH_SEPARATOR + ENV['RUBYLIB'].to_s
   @original_home = ENV['HOME']
-  ENV['HOME'] = '/tmp/expandsync'
-  FileUtils.rm_rf '/tmp/expandsync'
-  FileUtils.mkdir_p '/tmp/expandsync/Dropbox/TextExpander'
+  ENV['HOME'] = "/tmp/expandsync"
+  FileUtils.rm_rf "/tmp/expandsync"
+  FileUtils.mkdir "/tmp/expandsync"
+  FileUtils.mkdir_p "/tmp/expandsync/Dropbox/TextExpander"
 end
 
 After do

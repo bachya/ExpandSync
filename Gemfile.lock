@@ -33,6 +33,7 @@ GEM
     multi_test (0.0.3)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    nori (2.3.0)
     rake (0.9.6)
     rdoc (4.1.1)
       json (~> 1.4)
@@ -46,5 +47,6 @@ DEPENDENCIES
   aruba
   bundler (~> 1.5)
   expandsync!
+  nori
   rake (~> 0.9.2)
   rdoc

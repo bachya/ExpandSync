@@ -12,6 +12,7 @@ Feature: UI
         | atext_file | which is required |
       And the following options should be documented:
             | -a        |
+            | -n        |
             | -t        |
             | -v        |
             | --verbose |
