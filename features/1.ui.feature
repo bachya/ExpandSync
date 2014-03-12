@@ -13,6 +13,5 @@ Feature: UI
       And the following options should be documented:
             | -a        |
             | -n        |
-            | -t        |
             | -v        |
             | --verbose |

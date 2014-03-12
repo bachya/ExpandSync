@@ -44,9 +44,8 @@ class App
   version ExpandSync::VERSION
   
   # Flags & Switches
-  on('-a FILEPATH', "Specify an output location for aText rules (default to...})")
-  on('-n', )
-  on('-t FILEPATH', 'Specify a location for the TextExpander iOS XML file')
+  on('-a FILEPATH', "Specify an output location for aText rules (default to #{ ExpandSync::DEFAULT_AT_OUTPUT_PATH }})")
+  on('-n', 'Disable backing up of Settings.textexpander (RUN AT YOUR OWN RISK!)')
   on('-v', '--verbose', 'Turn on verbose output')
   
   # Arguments

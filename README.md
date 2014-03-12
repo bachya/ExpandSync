@@ -5,7 +5,33 @@ A simple engine to sync aText and TextExpander iOS.
 
 # Installation
 
-    $ gem install expandsync   
+    $ gem install expandsync
+  
+# Usage
+
+Syntax and usage can be accessed by running `expandsync --help`:
+
+```
+$ expandsync --help
+Usage: expandsync [options] atext_filepath
+
+An engine for synchronizing snippets from aText on OS X and TextExpander iOS
+
+v0.1.0
+
+Options:
+    -h, --help                       Show command line help
+        --version                    Show help/version info
+    -a FILEPATH                      Specify an output location for aText rules (default to /Users/abach/aText-snippets.csv})
+    -n                               Disable backing up of Settings.textexpander (RUN AT YOUR OWN RISK!)
+    -t FILEPATH                      Specify a location for the TextExpander iOS XML file
+    -v, --verbose                    Turn on verbose output
+
+Arguments:
+
+    atext_filepath
+        The filepath to a CSV file exported from aText
+```
 
 # Warning
 
