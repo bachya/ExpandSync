@@ -6,8 +6,14 @@ A simple engine to sync aText and TextExpander iOS.
 # Installation
 
     $ gem install expandsync
+
+# Warning
+
+ExpandSync is still *heavily* in development; as such, expect this repository to change daily. **USE AT YOUR OWN DISCRETION.**
   
 # Usage
+
+TODO: Write better usage instructions
 
 Syntax and usage can be accessed by running `expandsync --help`:
 
@@ -32,14 +38,6 @@ Arguments:
     atext_filepath
         The filepath to a CSV file exported from aText
 ```
-
-# Warning
-
-ExpandSync is still *heavily* in development; as such, expect this repository to change daily.
-
-# Usage
-
-TODO: Write usage instructions here
 
 # Contributing
 
