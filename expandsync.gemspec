@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version          = ExpandSync::VERSION
   spec.authors          = ['Aaron Bach']
   spec.email            = ['bachya1208@googlemail.com']
-  spec.summary          = ExpandSync::DESCRIPTION
-  spec.description      = 'A command line app that synchronizes text expansion snippets between aText for OS X and TextExpander for iOS'
+  spec.summary          = ExpandSync::SUMMARY
+  spec.description      = ExpandSync::DESCRIPTION
   spec.homepage         = 'https://github.com/bachya/ExpandSync'
   spec.license          = 'MIT'
   spec.platform         = Gem::Platform::RUBY
@@ -25,9 +25,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency('bundler')
   spec.add_development_dependency('rake')
-  spec.add_development_dependency('rdoc')
   spec.add_development_dependency('aruba', '~> 0')
-  spec.add_development_dependency('nori', '~> 0')
+  spec.add_development_dependency('equivalent-xml', '~> 0')
   spec.add_dependency('methadone', '~> 1.3', '>= 1.3.1')
   spec.add_dependency('nokogiri', '~> 1.6', '>= 1.6.1')
 end

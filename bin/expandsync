@@ -30,7 +30,7 @@ class App
       File.open(options[:a] || ExpandSync::DEFAULT_AT_OUTPUT_PATH, 'w') {|f| f.write(new_at_csv) }
       
       # Backup the original TextExpander file and output the new one.
-      FileUtils.cp(ExpandSync::DEFAULT_TE_SNIPPET_PATH, ExpandSync::DEFAULT_TE_SNIPPET_PATH + '.bak')
+      FileUtils.cp(ExpandSync::DEFAULT_TE_SNIPPET_PATH, ExpandSync::DEFAULT_TE_SNIPPET_PATH + '.bak') unless options[:n]
       File.open(ExpandSync::DEFAULT_TE_SNIPPET_PATH, 'w') {|f| f.write(new_te_xml) }
       
       # This has to be here so that my Cucumber Aruba tests work. Don't ask why.
