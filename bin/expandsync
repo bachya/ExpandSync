@@ -13,24 +13,23 @@ class App
   
   main do |atext_filepath|
     begin
-      # Collect snippets from both aText and TextExpander and create an
-      # array with the unique entries of both.
       atext = AText.new(atext_filepath, options[:a])
       textexpander = TextExpander.new
-      combined_snippets = (atext.snippets + textexpander.snippets).uniq { |s| s[0] }
       
-      # Next, create file content (CSV for aText, XML for TextExpander)
+      # Create file content (CSV for aText, XML for TextExpander)
       # that contains the correct data:
       #   1. aText CSV should contain any new TextExpander snippets.
       #   2. TextExpander XML should contain original snippets *and*
       #      any new aText snippets.
+      combined_snippets = (atext.snippets + textexpander.snippets).uniq { |s| s[0] }
       atext.construct_data(combined_snippets - atext.snippets)
       textexpander.construct_data(combined_snippets - textexpander.snippets)
       
-      # Save new aText snippets 
+      # Save new aText snippets .
       atext.save
       
-      # Backup the original TextExpander file and output the new one.
+      # Backup the original TextExpander file (unless the user has specified
+      # that they don't want a backup) and save the new one.
       textexpander.backup unless options[:n]
       textexpander.save
       
@@ -46,7 +45,7 @@ class App
   version ExpandSync::VERSION
   
   # Flags & Switches
-  on('-a FILEPATH', "Specify an output location for aText rules (defaults to ~/#{ AText::OUTPUT_FILENAME })")
+  on('-a FILEPATH', "Output location for aText rules (defaults to ~/#{ AText::OUTPUT_FILENAME })")
   on('-n', 'Disable backing up of Settings.textexpander (RUN AT YOUR OWN RISK!)')
   on('-v', '--verbose', 'Turn on verbose output')
   

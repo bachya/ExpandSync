@@ -22,7 +22,6 @@ class TextExpander
   #  ----------------------------------------------------
   #  initialize method
   #
-  #  @param csv_filepath The filepath to the aText CSV
   #  @return Void
   #  ----------------------------------------------------
   def initialize
@@ -159,7 +158,8 @@ class TextExpander
   #  ----------------------------------------------------
   #  construct_data method
   #
-  #  Outputs an XML file with the new snippets added.
+  #  Modifies the currently held XML data with new snippet
+  #  information.
   #  @param new_snippets The snippet array to use
   #  @return Void
   #  ----------------------------------------------------

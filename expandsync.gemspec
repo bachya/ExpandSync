@@ -26,7 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('bundler')
   spec.add_development_dependency('rake')
   spec.add_development_dependency('aruba', '~> 0')
-  spec.add_development_dependency('equivalent-xml', '~> 0')
   spec.add_dependency('methadone', '~> 1.3', '>= 1.3.1')
   spec.add_dependency('nokogiri', '~> 1.6', '>= 1.6.1')
 end
