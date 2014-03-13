@@ -13,11 +13,11 @@ Gem::Specification.new do |spec|
   spec.homepage         = 'https://github.com/bachya/ExpandSync'
   spec.license          = 'MIT'
   spec.platform         = Gem::Platform::RUBY
-                        
+
+  spec.require_paths    = ["lib"]
   spec.files            = `git ls-files -z`.split("\x0")
   spec.executables      = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files       = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths    = ["lib"]
   
   spec.license          = 'MIT'
   spec.rdoc_options     = ['--charset=UTF-8']

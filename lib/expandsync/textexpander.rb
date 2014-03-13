@@ -5,7 +5,16 @@ require 'time'
 #  TextExpander Class
 #  ======================================================
 class TextExpander
-  attr_accessor :base_xml, :filepath, :snippets
+  #  ====================================================
+  #  Constants
+  #  ====================================================
+  OUTPUT_FILENAME = 'Settings.textexpander'
+  OUTPUT_PATH = File.join(ENV['HOME'], 'Dropbox', 'TextExpander')
+
+  #  ====================================================
+  #  Attributes
+  #  ====================================================
+  attr_accessor :base_xml, :output_file, :snippet_xml, :snippets
 
   #  ====================================================
   #  Methods
@@ -16,11 +25,12 @@ class TextExpander
   #  @param csv_filepath The filepath to the aText CSV
   #  @return Void
   #  ----------------------------------------------------
-  def initialize(xml_filepath)
+  def initialize
     begin
       xpath = "/*/*/array[preceding-sibling::key[1] = 'snippetsTE2']/*"
-      @filepath = xml_filepath
-      @base_xml = Nokogiri::XML(File.open(filepath))
+      @output_file = File.join(OUTPUT_PATH, OUTPUT_FILENAME)
+      @base_xml = Nokogiri::XML(File.open(@output_file))
+      @snippet_xml = @base_xml
 
       arr = []
       @base_xml.xpath(xpath).each do |snippet|
@@ -30,7 +40,7 @@ class TextExpander
       end
       @snippets = arr
     rescue 
-      fail "Invalid TextExpander XML file: #{ xml_filepath }"
+      fail "Invalid TextExpander XML file: #{ @output_file }"
     end
   end
 
@@ -46,7 +56,7 @@ class TextExpander
     groups_xpath = "/*/*/array[preceding-sibling::key[1] = 'groupsTE2']"
     at_group_xpath = groups_xpath + "/*[string[preceding-sibling::key[1] = 'name'] = 'aText']"
     
-    if @base_xml.xpath(at_group_xpath).empty?
+    if @snippet_xml.xpath(at_group_xpath).empty?
       xml_builder = Nokogiri::XML::Builder.new do |xml|
         xml.dict {
           xml.key 'expandAfterMode'
@@ -71,18 +81,17 @@ class TextExpander
           xml.integer '1'
         }
       end
-      @base_xml.xpath(groups_xpath)[0].add_child(xml_builder.doc.root.to_xml)
-      # File.open(File.join(ENV['HOME'], 'Downloads/test.xml'), 'w') { |f| @base_xml.write_xml_to f }
+      @snippet_xml.xpath(groups_xpath)[0].add_child(xml_builder.doc.root.to_xml)
     else
       xml_builder = Nokogiri::XML::Builder.new do |xml|
         xml.array {
-          snippet_uuids.each do |u| 
-            xml.string u
+          snippet_uuids.each do |uuid| 
+            xml.string uuid
           end
         }
       end
       
-      @base_xml.xpath(at_group_xpath + "/array[preceding-sibling::key[1] = 'snippetUUIDs']")[0].add_child(xml_builder.doc.root.children.to_xml)
+      @snippet_xml.xpath(at_group_xpath + "/array[preceding-sibling::key[1] = 'snippetUUIDs']")[0].add_child(xml_builder.doc.root.children.to_xml)
     end
   end
 
@@ -129,8 +138,22 @@ class TextExpander
       }
     end
     
-    @base_xml.xpath("/*/*/array[preceding-sibling::key[1] = 'snippetsTE2']")[0].add_child(xml_builder.doc.root.children.to_xml)
+    @snippet_xml.xpath("/*/*/array[preceding-sibling::key[1] = 'snippetsTE2']")[0].add_child(xml_builder.doc.root.children.to_xml)
     uuids
+  end
+
+  #  ----------------------------------------------------
+  #  backup method
+  #
+  #  Backs up the current TextExpander settings to a
+  #  timestamped file in the same directory. Returns
+  #  the path to the file created.
+  #  @return String
+  #  ----------------------------------------------------
+  def backup
+    dest_filepath = @output_file + "_#{ Time.now.utc.iso8601 }"
+    FileUtils.cp(@output_file, dest_filepath)
+    dest_filepath
   end
 
   #  ----------------------------------------------------
@@ -138,12 +161,21 @@ class TextExpander
   #
   #  Outputs an XML file with the new snippets added.
   #  @param new_snippets The snippet array to use
-  #  @return String
+  #  @return Void
   #  ----------------------------------------------------
   def construct_data(new_snippets)
     snippet_uuids = add_snippets_to_base_xml(new_snippets)
     add_group_to_base_xml(snippet_uuids)
-    @base_xml
+  end
+
+  #  ----------------------------------------------------
+  #  save method
+  #
+  #  Saves the current snippets to Settings.textexpander.
+  #  @return Void
+  #  ----------------------------------------------------
+  def save
+    File.open(@output_file, 'w') {|f| f.write(@snippet_xml) }
   end
 
   private :add_group_to_base_xml, :add_snippets_to_base_xml

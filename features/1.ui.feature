@@ -1,5 +1,5 @@
 Feature: UI
-  When the user asks for help, he should be presented
+  As a user asks, when I ask for help, I should be presented
   with instructions on how to run the app.
 
   Scenario: Display help instructions

@@ -14,6 +14,8 @@ Before do
   ENV['HOME'] = "/tmp/expandsync"
   FileUtils.rm_rf "/tmp/expandsync"
   FileUtils.mkdir "/tmp/expandsync"
+  FileUtils.mkdir "/tmp/expandsync/input"
+  FileUtils.mkdir "/tmp/expandsync/output"
   FileUtils.mkdir_p "/tmp/expandsync/Dropbox/TextExpander"
 end
 

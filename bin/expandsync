@@ -2,6 +2,7 @@
 
 require 'csv'
 require 'expandsync'
+require 'fileutils'
 require 'methadone'
 require 'nokogiri'
 require 'optparse'
@@ -14,8 +15,8 @@ class App
     begin
       # Collect snippets from both aText and TextExpander and create an
       # array with the unique entries of both.
-      atext = AText.new(atext_filepath)
-      textexpander = TextExpander.new(options[:t] || ExpandSync::DEFAULT_TE_SNIPPET_PATH)
+      atext = AText.new(atext_filepath, options[:a])
+      textexpander = TextExpander.new
       combined_snippets = (atext.snippets + textexpander.snippets).uniq { |s| s[0] }
       
       # Next, create file content (CSV for aText, XML for TextExpander)
@@ -23,20 +24,21 @@ class App
       #   1. aText CSV should contain any new TextExpander snippets.
       #   2. TextExpander XML should contain original snippets *and*
       #      any new aText snippets.
-      new_at_csv = atext.construct_data(combined_snippets - atext.snippets)
-      new_te_xml = textexpander.construct_data(combined_snippets - textexpander.snippets)
+      atext.construct_data(combined_snippets - atext.snippets)
+      textexpander.construct_data(combined_snippets - textexpander.snippets)
       
       # Save new aText snippets 
-      File.open(options[:a] || ExpandSync::DEFAULT_AT_OUTPUT_PATH, 'w') {|f| f.write(new_at_csv) }
+      atext.save
       
       # Backup the original TextExpander file and output the new one.
-      FileUtils.cp(ExpandSync::DEFAULT_TE_SNIPPET_PATH, ExpandSync::DEFAULT_TE_SNIPPET_PATH + '.bak') unless options[:n]
-      File.open(ExpandSync::DEFAULT_TE_SNIPPET_PATH, 'w') {|f| f.write(new_te_xml) }
+      textexpander.backup unless options[:n]
+      textexpander.save
       
       # This has to be here so that my Cucumber Aruba tests work. Don't ask why.
       leak_exceptions(true)
     rescue StandardError => e
       ExpandSync::CLIMessage.error(e, false)
+      exit!(1)
     end
   end
 
@@ -44,7 +46,7 @@ class App
   version ExpandSync::VERSION
   
   # Flags & Switches
-  on('-a FILEPATH', "Specify an output location for aText rules (default to #{ ExpandSync::DEFAULT_AT_OUTPUT_PATH }})")
+  on('-a FILEPATH', "Specify an output location for aText rules (defaults to ~/#{ AText::OUTPUT_FILENAME })")
   on('-n', 'Disable backing up of Settings.textexpander (RUN AT YOUR OWN RISK!)')
   on('-v', '--verbose', 'Turn on verbose output')
   
