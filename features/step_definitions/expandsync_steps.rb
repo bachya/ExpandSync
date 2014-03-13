@@ -2,10 +2,6 @@ Given(/^a file located at "(.*?)"$/) do |filepath|
   expect(File).to exist(File.expand_path(filepath))
 end
 
-Given(/^a variable that equals "(.*?)"$/) do |filepath|
-  @variable = filepath
-end
-
 Then(/^"(.*?)" should exist$/) do |file|
   expect(File).to exist(File.expand_path(file)) 
 end

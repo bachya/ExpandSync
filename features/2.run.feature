@@ -1,3 +1,4 @@
+@announce
 Feature: Run
   As a user, when I run the app (w/ or w/o flags), I
   should have the correct content be placed in the correct
