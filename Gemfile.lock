@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    expandsync (0.1.0)
+    expandsync (0.1.1)
       methadone (~> 1.3, >= 1.3.1)
       nokogiri (~> 1.6, >= 1.6.1)
 
@@ -41,6 +41,5 @@ PLATFORMS
 
 DEPENDENCIES
   aruba (~> 0)
-  bundler
   expandsync!
-  rake
+  rake (~> 0)
