@@ -1,12 +1,12 @@
 ExpandSync [![Build Status](https://travis-ci.org/bachya/ExpandSync.png?branch=master)](https://travis-ci.org/bachya/ExpandSync)
 ==========
 
-A simple engine to sync snippets between aText and TextExpander iOS. Because these two programs don't natively sync, it becomes necessary to introduce a tool that helps grease the skids, so to speak.
+A simple engine to sync snippets between aText and TextExpander Touch. Because these two programs don't natively sync, it becomes necessary to introduce a tool that helps grease the skids, so to speak.
 
 # Prerequisites
 
 * Install Ruby 1.9.3 or greater on the machine that will run ExpandSync.
-* Enable Dropbox syncing in TextExpander iOS.
+* Enable Dropbox syncing in TextExpander Touch.
 
 # Installation
 
@@ -43,14 +43,14 @@ Synchronizing these two applications follows this process:
 
 1. Export the current aText snippet list (**Data >> Backup To...**). Ensure that you export a CSV (not an aText) file.
 2. Run `expandsync /path/to/your/aText/file.csv`
-3. ExpandSync will calculate the snippets that are missing from aText and those that are missing from TextExpander iOs.
-4. Unique aText snippets will be automatically imported into TextExpander iOS via Dropbox.
-5. ExpandSync will output `aText-snippets.csv` – which contains snippets unique to TextExpander iOS – which can be imported into aText.
+3. ExpandSync will calculate the snippets that are missing from aText and those that are missing from TextExpander Touch.
+4. Unique aText snippets will be automatically imported into TextExpander Touch via Dropbox.
+5. ExpandSync will output `aText-snippets.csv` – which contains snippets unique to TextExpander Touch – which can be imported into aText.
 
 # Caveats
 
 * Unfortunately, aText does not allow programmatic access to its snippet database; as such, there is a rather manual nature to this (you most likely won't be running this on a regular cron job).
-* Because neither aText nor TextExpander iOS tracks snippets that have been deleted, there's no way to tell both applications to simultaneously delete a snippet. I'm working on a "ask-the-user" method, but in the meantime, snippets will have to be manually deleted from both sides.
+* Because neither aText nor TextExpander Touch tracks snippets that have been deleted, there's no way to tell both applications to simultaneously delete a snippet. I'm working on a "ask-the-user" method, but in the meantime, snippets will have to be manually deleted from both sides.
 * Currently, dynamic text – dates, etc. – are not translated between programs. I'm planning to address in a future version.
 
 # Known Issues & Future Releases
