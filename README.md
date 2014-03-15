@@ -1,4 +1,4 @@
-ExpandSync[![Build Status](https://travis-ci.org/bachya/ExpandSync.png?branch=master)](https://travis-ci.org/bachya/ExpandSync)
+ExpandSync [![Build Status](https://travis-ci.org/bachya/ExpandSync.png?branch=master)](https://travis-ci.org/bachya/ExpandSync)
 ==========
 
 A simple engine to sync snippets between aText and TextExpander iOS. Because these two programs don't natively sync, it becomes necessary to introduce a tool that helps grease the skids, so to speak.
@@ -24,7 +24,7 @@ Usage: expandsync [options] atext_filepath
 
 A command line app that synchronizes text expansion snippets between aText for OS X and TextExpander for iOS
 
-v0.1.1
+v0.1.2
 
 Options:
     -h, --help                       Show command line help
@@ -53,6 +53,7 @@ Synchronizing these two applications follows this process:
 
 * Unfortunately, aText does not allow programmatic access to its snippet database; as such, there is a rather manual nature to this (you most likely won't be running this on a regular cron job).
 * Because neither aText nor TextExpander iOS tracks snippets that have been deleted, there's no way to tell both applications to simultaneously delete a snippet. I'm working on a "ask-the-user" method, but in the meantime, snippets will have to be manually deleted from both sides.
+* Currently, dynamic text – dates, etc. – are not translated between programs. I'm planning to address in a future version.
 
 # Known Issues & Future Releases
 
