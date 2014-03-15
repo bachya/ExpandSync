@@ -14,8 +14,6 @@ A simple engine to sync snippets between aText and TextExpander iOS. Because the
   
 # Usage
 
-TODO: Write better usage instructions
-
 Syntax and usage can be accessed by running `expandsync --help`:
 
 ```
