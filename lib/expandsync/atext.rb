@@ -33,10 +33,16 @@ class AText
       end
     end
     
-    begin  
-      @snippets = CSV.read(csv_filepath)
-    rescue 
-      fail "Invalid aText CSV file: #{ csv_filepath }"
+    if File.exists?(csv_filepath) && File.extname(csv_filepath) == '.csv'
+      begin  
+        @snippets = CSV.read(csv_filepath)
+      rescue 
+        fail "Could not load CSV from file: #{ csv_filepath }"
+      end
+      
+      @snippets.each { |s| s[2] = 'aText' }
+    else
+      fail "Invalid CSV file: #{ csv_filepath }"
     end
   end
   

@@ -35,7 +35,7 @@ class TextExpander
       @base_xml.xpath(xpath).each do |snippet|
         abbreviation = snippet.xpath("string[preceding-sibling::key[1] = 'abbreviation']").text
         value = snippet.xpath("string[preceding-sibling::key[1] = 'plainText']").text
-        arr << [abbreviation, value] 
+        arr << [abbreviation, value, 'TextExpander'] 
       end
       @snippets = arr
     rescue 
@@ -145,14 +145,11 @@ class TextExpander
   #  backup method
   #
   #  Backs up the current TextExpander settings to a
-  #  timestamped file in the same directory. Returns
-  #  the path to the file created.
+  #  timestamped file in the same directory.
   #  @return String
   #  ----------------------------------------------------
   def backup
-    dest_filepath = @output_file + "_#{ Time.now.utc.iso8601 }"
-    FileUtils.cp(@output_file, dest_filepath)
-    dest_filepath
+    FileUtils.cp(@output_file, @output_file + "_#{ Time.now.utc.iso8601 }")
   end
 
   #  ----------------------------------------------------
