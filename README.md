@@ -1,5 +1,7 @@
-ExpandSync [![Build Status](https://travis-ci.org/bachya/ExpandSync.png?branch=master)](https://travis-ci.org/bachya/ExpandSync)
+ExpandSync
 ==========
+[![Build Status](https://travis-ci.org/bachya/ExpandSync.png?branch=master)](https://travis-ci.org/bachya/ExpandSync)
+[![Gem Version](https://badge.fury.io/rb/expandsync.png)](http://badge.fury.io/rb/expandsync)
 
 A simple engine to sync snippets between aText and TextExpander Touch. Because these two programs don't natively sync, it becomes necessary to introduce a tool that helps grease the skids, so to speak.
 
