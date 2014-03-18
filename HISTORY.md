@@ -1,3 +1,7 @@
+# 0.1.3 (2014-03-18)
+
+* Removed duplicated symbols
+
 # 0.1.2 (2014-03-15)
 
 * Added more documentation

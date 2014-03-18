@@ -24,7 +24,7 @@ Usage: expandsync [options] atext_filepath
 
 A command line app that synchronizes text expansion snippets between aText for OS X and TextExpander for iOS
 
-v0.1.2
+v0.1.3
 
 Options:
     -h, --help                       Show command line help
