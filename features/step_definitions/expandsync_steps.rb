@@ -7,9 +7,9 @@ Then(/^"(.*?)" should exist$/) do |file|
 end
 
 Then(/^Settings\.textexpander should be backed up$/) do
-  expect(File).to exist("/tmp/expandsync/Dropbox/TextExpander/Settings.textexpander_#{ Time.now.utc.iso8601 }")
+  expect(Dir['/tmp/expandsync/Dropbox/TextExpander/*'].count).to eq(2)
 end
 
 Then(/^Settings\.textexpander should not be backed up$/) do
-  expect(File).to_not exist("/tmp/expandsync/Dropbox/TextExpander/Settings.textexpander_#{ Time.now.utc.iso8601 }")
+  expect(Dir['/tmp/expandsync/Dropbox/TextExpander/*'].count).to eq(1)
 end
