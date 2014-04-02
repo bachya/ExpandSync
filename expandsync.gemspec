@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency('rake', '~> 0')
   spec.add_development_dependency('aruba', '~> 0')
-  spec.add_dependency('cliutils')
+  spec.add_dependency('cliutils', '~> 0')
   spec.add_dependency('methadone', '~> 1.3', '>= 1.3.1')
   spec.add_dependency('nokogiri', '~> 1.6', '>= 1.6.1')
 end
