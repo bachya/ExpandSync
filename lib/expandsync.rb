@@ -1,8 +1,9 @@
 require "expandsync/atext"
-require "expandsync/cli_message"
+require "expandsync/constants"
 require "expandsync/textexpander"
-require "expandsync/version"
 
+# The ExpandSync module, which wraps everything
+# in this gem.
 module ExpandSync  
 
 end
