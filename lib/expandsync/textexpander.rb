@@ -1,3 +1,4 @@
+require 'fileutils'
 require 'nokogiri'
 require 'securerandom'
 require 'time'

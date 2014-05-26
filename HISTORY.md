@@ -1,3 +1,7 @@
+# 0.2.2 (2014-05-26)
+
+* Added explicit inclusion of FileUtils
+
 # 0.2.1 (2014-04-03)
 
 * Updated to latest CLIUtils
